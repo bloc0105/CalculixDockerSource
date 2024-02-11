@@ -71,18 +71,28 @@ RUN tar -xf ccx_2.21.test.tar
 
 RUN mv /CalculiX/ccx_2.21 /usr/local/CalculiX/
 
+RUN mkdir /usr/local/SPOOLES.2.2 && mkdir /usr/local/ARPACK.
 RUN mkdir spooles
 RUN cd spooles && wget https://www.netlib.org/linalg/spooles/spooles.2.2.tgz
+
+# You have to change the spooles makefile here to run on gcc instead of the c compiler
 RUN cd spooles && tar -xvzf spooles.2.2.tgz && rm spooles.2.2.tgz 
+# sed -i '/Linux/d' example.txt /spooles/Make.inc
+# Line 14 CC = gcc
+# Line 15  CC = /usr/lang-4.0/bin/cc
+RUN sed -i '/^lang-4.0/ s/./#&/' /spooles/Make.inc
 
 
+#PUT THIS LINE BACK WHEN COMPLETE!!!
+# RUN cd spooles && make lib
 
-# RUN cp -r /spooles /usr/local/spooles2.2
 
 # RUN apt install -y git cmake  libspooles* libarpack*
+# RUN cp -r /spooles /usr/local/spooles2.2
 
+RUN apt install -y git cmake
 
-# RUN git clone https://github.com/opencollab/arpack-ng.git
+RUN git clone https://github.com/opencollab/arpack-ng.git/
 
 # RUN cd arpack-ng && mkdir build
 # RUN cd /arpack-ng/build && cmake -D EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -D MPI=OFF -D BUILD_SHARED_LIBS=ON .. && make && make install
