@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  calculix:
+    image: calculix
+    privileged: true
+    network_mode: "host"
+    environment:
+      - DISPLAY=$DISPLAY
+    volumes:
+      - type: bind
+        source: $HOME/.Xauthority
+        target: /root/.Xauthority
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      # - type: bind
+      #   source: /home/andy/CAD
+      #   target: /CAD
