@@ -96,5 +96,6 @@ RUN cd /arpack-ng/build && cmake -DEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr
 
 # spooles.h:26:10: fatal error: misc.h: No such file or directory
 #Check the makefile for calculix and see if it's accurate.  
+# https://calculix.discourse.group/t/spooles-h10-fatal-error-misc-h-no-such-file-or-directory/323/2
 
 # RUN cd /usr/local/CalculiX/ccx_2.21/src && make
