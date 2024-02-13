@@ -83,7 +83,7 @@ RUN sed -i '/lang/ s/./#&/' /spooles/Make.inc
 RUN sed -i '/CC = gcc/ s/#/ /' /spooles/Make.inc 
 #PUT THIS LINE BACK WHEN COMPLETE!!!/usr/local/SPOOLES.2.2
 RUN sed -i 's/drawTree/draw/g' /spooles/Tree/src/makeGlobalLib
-RUN cd spooles && make global && cp ./spooles.a /usr/local/SPOOLES.2.2 
+RUN cd spooles && make global && cp ./spooles.a /usr/local/SPOOLES.2.2 && cp ./*.h /usr/local/SPOOLES.2.2
 
 
 RUN apt install -y git cmake
