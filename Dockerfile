@@ -82,7 +82,8 @@ RUN cd spooles && tar -xvzf spooles.2.2.tgz && rm spooles.2.2.tgz
 RUN sed -i '/lang/ s/./#&/' /spooles/Make.inc
 RUN sed -i '/CC = gcc/ s/#/ /' /spooles/Make.inc 
 #PUT THIS LINE BACK WHEN COMPLETE!!!/usr/local/SPOOLES.2.2
-RUN cd spooles && make lib && cp ./spooles.a /usr/local/SPOOLES.2.2 
+RUN sed -i 's/drawTree/draw/g' /spooles/Tree/src/makeGlobalLib
+RUN cd spooles && make global && cp ./spooles.a /usr/local/SPOOLES.2.2 
 
 
 RUN apt install -y git cmake
@@ -92,10 +93,12 @@ RUN apt install -y git cmake
 RUN git clone https://github.com/opencollab/arpack-ng.git/
 
 RUN cd arpack-ng && mkdir build
-RUN cd /arpack-ng/build && cmake -DEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ARPACK -DMPI=OFF -DBUILD_SHARED_LIBS=ON .. && make lib
+RUN cd /arpack-ng/build && cmake -DEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ARPACK -DMPI=OFF -DBUILD_SHARED_LIBS=OFF .. && make install
 
 # spooles.h:26:10: fatal error: misc.h: No such file or directory
+# ../../../ARPACK/libarpack_INTEL.a \
 #Check the makefile for calculix and see if it's accurate.  
 # https://calculix.discourse.group/t/spooles-h10-fatal-error-misc-h-no-such-file-or-directory/323/2
+# pthread A2
 
 # RUN cd /usr/local/CalculiX/ccx_2.21/src && make
