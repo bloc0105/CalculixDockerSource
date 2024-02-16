@@ -83,7 +83,7 @@ RUN sed -i '/lang/ s/./#&/' /spooles/Make.inc
 RUN sed -i '/CC = gcc/ s/#/ /' /spooles/Make.inc 
 #PUT THIS LINE BACK WHEN COMPLETE!!!/usr/local/SPOOLES.2.2
 RUN sed -i 's/drawTree/draw/g' /spooles/Tree/src/makeGlobalLib
-RUN cd spooles && make global && cp ./spooles.a /usr/local/SPOOLES.2.2 && cp ./*.h /usr/local/SPOOLES.2.2
+RUN cd spooles && make global && cp -r ./* /usr/local/SPOOLES.2.2
 
 
 RUN apt install -y git cmake
@@ -100,5 +100,11 @@ RUN cd /arpack-ng/build && cmake -DEXAMPLES=OFF -DCMAKE_INSTALL_PREFIX:PATH=/usr
 #Check the makefile for calculix and see if it's accurate.  
 # https://calculix.discourse.group/t/spooles-h10-fatal-error-misc-h-no-such-file-or-directory/323/2
 # pthread A2
+#https://cs50.stackexchange.com/questions/10279/what-is-libs-in-the-makefile
 
-# RUN cd /usr/local/CalculiX/ccx_2.21/src && make
+RUN cd /usr/local/CalculiX/ccx_2.21/src && sed -i 's/libarpack_INTEL/lib\/libarpack/g' ./Makefile \
+&& sed -i 's/\-lm \-lc/\-lm \-lc \-llapack \-lblas/g' ./Makefile && make
+
+RUN cp /usr/local/CalculiX/ccx_2.21/src/ccx_2.21 /usr/local/bin/ccx
+
+CMD cd /usr/local/CalculiX/ccx_2.21/test && /usr/local/bin/ccx beamp
