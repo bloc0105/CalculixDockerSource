@@ -1,8 +1,12 @@
 version: "3.8"
 services:
   calculix:
-    image: calculix
+    image: calculix:latest
+    command: /bin/bash
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     privileged: true
+    container_name: calculix_cgx
     network_mode: "host"
     environment:
       - DISPLAY=$DISPLAY
@@ -13,4 +17,5 @@ services:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
+
 

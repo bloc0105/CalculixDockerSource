@@ -34,3 +34,26 @@ This image does not have any dependencies and can be run simply with [Docker](ht
 - The provided Dockerfile is based on Debian.
 - Make sure to replace the default `CMD` instruction with the desired command or test case. Or just comment that line out and run the container interactively. If you choose to do this, the command to run it would be `docker run -ti --rm  calculix:latest`. 
 - I based this container on the official [CalculiX Documentation](http://www.dhondt.de/index.html). Check it out for further information.  
+
+## Using Docker Compose
+
+To simplify the deployment and orchestration of the CalculiX Docker container along with its dependencies, you can use Docker Compose.
+
+### Prerequisites
+
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Running with Docker Compose
+
+A docker compose file is included with this repository.  The compose file allows you to run the Calculix Graphical interface from the container by forwarding graphical capability from the container to your enviroment. Here are the steps to use this file:
+
+1. In a terminal, run the command `docker compose -f calculix.yml up`.  This will launch a docker calculix container.
+1. Start another terminal, and run `docker attach calculix_cgx` to enter into the container.
+1. Once inside the container, you can test the capability of cgx by running `cgx -b dummy.fbd`.
+
+### Notes
+
+
+- Make sure the `image` field corresponds to the name of the Docker image you've built. In the instructions above, we had used `calculix:latest`.
+- You can also change the `container_name` field if you with to give your container a different name. 
+- For more advanced configurations, refer to the [Docker Compose documentation](https://docs.docker.com/compose/).
